@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: part3-vips
+  labels:
+    name: part3-vips
+spec:
+  template:
+    spec:
+      containers:
+      - image: anakli/cca:parsec_vips
+        name: part3-vips
+        imagePullPolicy: Always
+        command: ["/bin/sh"]
+        args: ["-c", "taskset -c 0,1 ./run -a run -S parsec -p vips -i native -n 2"]
+      restartPolicy: Never
+      nodeSelector:
+        cca-project-nodetype: "node-b-4core"

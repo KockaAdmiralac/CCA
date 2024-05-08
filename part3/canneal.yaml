@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: part3-canneal
+  labels:
+    name: part3-canneal
+spec:
+  template:
+    spec:
+      containers:
+      - image: anakli/cca:parsec_canneal
+        name: part3-canneal
+        imagePullPolicy: Always
+        command: ["/bin/sh"]
+        args: ["-c", "./run -a run -S parsec -p canneal -i native -n 4"]
+      restartPolicy: Never
+      nodeSelector:
+        cca-project-nodetype: "node-b-4core"
