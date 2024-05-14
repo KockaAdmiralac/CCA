@@ -4,7 +4,7 @@ set -e
 mkdir -p measurements/part3
 
 LogTiming() {
-    echo "$1: $(date +%s)" >> measurements/part3/timing.yaml
+    echo "$1: $(date +"%Y-%m-%d %H:%M:%S")" >> measurements/part3/timing.yaml
 }
 
 RunCommand() {
@@ -62,6 +62,9 @@ else
 fi
 
 LogTiming cluster_created
+printf '\a'
+printf '\a'
+printf '\a'
 
 echo "Obtaining relevant node info..."
 NODE_INFO=`kubectl get nodes -o wide`
@@ -108,17 +111,27 @@ RunCommand "$CLIENT_MEASURE_EXTERNAL_IP" "tmux new-session -s mcperf -d 'while t
 LogTiming jobs_start
 
 echo "Stating dedup, vips, blackscholes and ferret jobs..."
-StartJob dedup
 StartJob vips
-StartJob blackscholes
+sleep 30
 StartJob ferret
+sleep 20
+StartJob dedup
+StartJob blackscholes
 StartJob freqmine
+StartJob radix
+StartJob canneal
+
+printf '\a'
+printf '\a'
+printf '\a'
+printf '\a'
+printf '\a'
 
 dedup_done="no"
 radix_done="no"
 vips_done="no"
 blackscholes_done="no"
-canneal_started="no"
+# canneal_started="no"
 canneal_done="no"
 ferret_done="no"
 freqmine_done="no"
@@ -126,11 +139,11 @@ all_done="no"
 while [ "$all_done" != "yes" ]
 do
     sleep 1
+    PODS_INFO=`kubectl get pods -o wide`
     clear
     echo "====================================================================="
+    echo "$PODS_INFO"
     JOB_INFO=`kubectl get jobs`
-    echo "$JOB_INFO"
-    kubectl get pods -o wide
     if [ "$dedup_done" == "no" ] && [ "$(echo "$JOB_INFO" | grep part3-dedup | tr -s ' ' | cut -d' ' -f2)" == "1/1" ]
     then
         dedup_done="yes"
@@ -145,29 +158,16 @@ do
     then
         vips_done="yes"
         echo "vips finished"
-        if [ "$canneal_started" == "no" ]
-        then
-            echo "Starting canneal..."
-            StartJob canneal
-            canneal_started="yes"
-        fi
     fi
     if [ "$blackscholes_done" == "no" ] && [ "$(echo "$JOB_INFO" | grep part3-blackscholes | tr -s ' ' | cut -d' ' -f2)" == "1/1" ]
     then
         blackscholes_done="yes"
         echo "blackscholes finished"
-        if [ "$canneal_started" == "no" ]
-        then
-            echo "Starting canneal..."
-            StartJob canneal
-            canneal_started="yes"
-        fi
     fi
     if [ "$canneal_done" == "no" ] && [ "$(echo "$JOB_INFO" | grep part3-canneal | tr -s ' ' | cut -d' ' -f2)" == "1/1" ]
     then
         canneal_done="yes"
-        echo "canneal finished, starting radix..."
-        StartJob radix
+        echo "canneal finished"
     fi
     if [ "$ferret_done" == "no" ] && [ "$(echo "$JOB_INFO" | grep part3-ferret | tr -s ' ' | cut -d' ' -f2)" == "1/1" ]
     then
@@ -179,7 +179,7 @@ do
         freqmine_done="yes"
         echo "freqmine finished"
     fi
-    if [ "$dedup_done" == "yes" ] && [ "$radix_done" == "yes" ] && [ "$ferret_done" == "yes" ] && [ "$freqmine_done" == "yes" ]
+    if [ "$dedup_done" == "yes" ] && [ "$radix_done" == "yes" ] && [ "$ferret_done" == "yes" ] && [ "$vips_done" == "yes" ] && [ "$freqmine_done" == "yes" ] && [ "$canneal_done" == "yes" ] && [ "$blackscholes_done" == "yes" ]
     then
         echo "All jobs done!"
         all_done="yes"

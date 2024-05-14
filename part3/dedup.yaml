@@ -12,10 +12,7 @@ spec:
         name: part3-dedup
         imagePullPolicy: Always
         command: ["/bin/sh"]
-        args: ["-c", "taskset -c 1 ./run -a run -S parsec -p dedup -i native -n 1"]
-        resources:
-          limits:
-            cpu: 1
+        args: ["-c", "./run -a run -S parsec -p dedup -i native -n 2"]
       restartPolicy: Never
       nodeSelector:
-        cca-project-nodetype: "node-a-2core"
+        cca-project-nodetype: "node-b-4core"
