@@ -13,7 +13,7 @@ spec:
   cloudConfig:
     gceServiceAccount: default
   cloudProvider: gce
-  configBase: gs://cca-eth-2024-group-19-sjenko/part3.k8s.local
+  configBase: gs://<your-gs-bucket>/part3.k8s.local
   containerRuntime: containerd
   etcdClusters:
   - cpuRequest: 200m
@@ -40,7 +40,7 @@ spec:
   networking:
     kubenet: {}
   nonMasqueradeCIDR: 100.64.0.0/10
-  project: cca-eth-2024-group-19
+  project: <your-cloud-computing-architecture-gcp-project>
   sshAccess:
   - 0.0.0.0/0
   subnets:

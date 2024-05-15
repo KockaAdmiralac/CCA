@@ -10,9 +10,9 @@ spec:
       containers:
       - image: anakli/cca:parsec_freqmine
         name: part3-freqmine
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         command: ["/bin/sh"]
-        args: ["-c", "./run -a run -S parsec -p freqmine -i native -n 8"]
+        args: ["-c", "taskset -c 0,1,2,3 ./run -a run -S parsec -p freqmine -i native -n 4"]
       restartPolicy: Never
       nodeSelector:
         cca-project-nodetype: "node-c-8core"

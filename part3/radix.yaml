@@ -10,7 +10,7 @@ spec:
       containers:
       - image: anakli/cca:splash2x_radix
         name: part3-radix
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         command: ["/bin/sh"]
         args: ["-c", "./run -a run -S splash2x -p radix -i native -n 4"]
       restartPolicy: Never
