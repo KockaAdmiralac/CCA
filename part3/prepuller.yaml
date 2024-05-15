@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: part3-prepuller
+spec:
+  selector:
+    matchLabels:
+      name: part3-prepuller
+  template:
+    metadata:
+      labels:
+        name: part3-prepuller
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: cca-project-nodetype
+                operator: In
+                values:
+                - node-a-2core
+                - node-b-4core
+                - node-c-8core
+      initContainers:
+        - name: prepuller-blackscholes
+          image: anakli/cca:parsec_blackscholes
+          command: ["sh", "-c", "'true'"]
+        - name: prepuller-canneal
+          image: anakli/cca:parsec_canneal
+          command: ["sh", "-c", "'true'"]
+        - name: prepuller-dedup
+          image: anakli/cca:parsec_dedup
+          command: ["sh", "-c", "'true'"]
+        - name: prepuller-ferret
+          image: anakli/cca:parsec_ferret
+          command: ["sh", "-c", "'true'"]
+        - name: prepuller-freqmine
+          image: anakli/cca:parsec_freqmine
+          command: ["sh", "-c", "'true'"]
+        - name: prepuller-radix
+          image: anakli/cca:splash2x_radix
+          command: ["sh", "-c", "'true'"]
+        - name: prepuller-vips
+          image: anakli/cca:parsec_vips
+          command: ["sh", "-c", "'true'"]
+      containers:
+        - name: pause
+          image: gcr.io/google_containers/pause:3.2
+          resources:
+            limits:
+              cpu: 1m
+              memory: 8Mi
+            requests:
+              cpu: 1m
+              memory: 8Mi
