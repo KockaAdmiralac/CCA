@@ -9,7 +9,7 @@ def load_cpu_data(path):
     # turn mem, cpu0, cpu1, cpu2, cpu3 columns into float
     for col in df.columns[1:]:
         df[col] = df[col].str.replace("%", "").astype(float)
-    print(df.head())
+    # print(df.head())
     return df
 
 
@@ -17,7 +17,7 @@ def load_qps_data(path):
     df = pd.read_csv(path, delim_whitespace=True)
     df["ts_start"] /= 1000
     df["ts_end"] /= 1000
-    print(df.head())
+    # print(df.head())
     return df
 
 
@@ -31,6 +31,9 @@ def join_cpu_df(cpu_df, qps_df):
             print(colored(f"More than one QPS data found for timestamp {ts}", "yellow"))
         elif not qps_row.empty:
             cpu_df.at[index, "QPS"] = qps_row["QPS"].values[0]
+            cpu_df.at[index, "target"] = qps_row["target"].values[0]
+            cpu_df.at[index, "ts_start"] = qps_row["ts_start"].values[0]
+            cpu_df.at[index, "ts_end"] = qps_row["ts_end"].values[0]
 
     # drow rows with Nan values
     cpu_df = cpu_df.dropna()
@@ -52,6 +55,31 @@ def load_all_data(cpu_paths, qps_paths):
     return df
 
 
+def plot_cpu_qps(df):
+    # scatter plot of all measurements and the maximum of each target
+    df.plot.scatter(x="QPS", y="cpu0", c="run", cmap="Set1")  # , ax=axs[0])
+    median_df = df.groupby("target")[["QPS", "cpu0"]].max()
+    median_df.plot(x="QPS", y="cpu0", color="black", ax=plt.gca())
+
+    # scatter plot of all measurements and the maximum of each target
+    df.plot.scatter(x="target", y="cpu0", c="run", cmap="Set1")  # , ax=axs[0])
+    median_df = df.groupby("target")["cpu0"].max()
+    median_df.plot(color="black", ax=plt.gca())
+    plt.show()
+
+
+def plot_relative_cpu_time_delta(df):
+    # to each row add the maximum cpu usage of all rows with the same QPS
+    df["max_cpu"] = df.groupby("QPS")["cpu0"].transform("max")
+    df["cpu_ratio"] = df["cpu0"] / df["max_cpu"]
+
+    df.plot.scatter(x="time_delta", y="cpu_ratio")
+    plt.xlabel("Time since the start of QPS bucket (s)")
+    plt.ylabel("Percentage of max CPU usage in that bucket")
+
+    plt.show()
+
+
 cpu_paths = [
     "measurements/performance-c1-t2-1.txt",
     "measurements/performance-c1-t2-2.txt",
@@ -64,12 +92,9 @@ qps_paths = [
 ]
 
 df = load_all_data(cpu_paths, qps_paths)
+df["time_delta"] = df["timestamp"] - df["ts_start"]
+print(colored("All data loaded", "green"))
 print(df.head())
-print(df.tail())
 
-# scatter plot
-# fig, axs = plt.subplots(1, 2, figsize=(12, 6))
-df.plot.scatter(x="QPS", y="cpu0", c="run", cmap="Set1")  # , ax=axs[0])
-# plot the median
-df.groupby("QPS")["cpu0"].median().plot(ax=plt.gca(), color="black", linewidth=2)
-plt.show()
+# plot_cpu_qps(df)
+plot_relative_cpu_time_delta(df)
