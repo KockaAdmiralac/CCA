@@ -1,30 +1,15 @@
 #!/bin/bash
 set -e
 
+source common.sh
+
 LogTiming() {
     mkdir -p measurements/part3
     echo "$1: $(date +"%Y-%m-%d %H:%M:%S")" >> measurements/part3/timing.yaml
 }
 
-RunCommand() {
-    ssh -oStrictHostKeyChecking=no -i cloud-computing "ubuntu@$1" "$2"
-}
-
-CopyToVM() {
-    scp -oStrictHostKeyChecking=no -i cloud-computing "$1" "ubuntu@$2"
-}
-
-CopyFromVM() {
-    scp -oStrictHostKeyChecking=no -i cloud-computing "ubuntu@$1" "$2"
-}
-
 StartJob() {
     kubectl create -f "part3/$1.yaml"
-}
-
-SetupMcperf() {
-    CopyToVM make-mcperf.sh "$1:"
-    RunCommand "$1" "bash make-mcperf.sh" > /dev/null
 }
 
 SetupPerformance() {
@@ -37,33 +22,10 @@ GetPerformanceMeasurements() {
     CopyFromVM "$1:performance.txt" measurements/part3/performance-$2.txt
 }
 
-TerminalBell() {
-    printf '\a'
-}
-
-if [ ! -f cloud-computing ]
-then
-    echo "Generating SSH key..."
-    ssh-keygen -t rsa -b 4096 -f cloud-computing -N ''
-fi
-
+GenerateSSHKey
 LogTiming start
 
-if [ "$(kubectl config current-context 2>/dev/null || echo none)" == "part3.k8s.local" ]
-then
-    echo "Cluster already exists -- not creating"
-else
-    echo "Creating cluster..."
-    source profile.sh
-    sed -i "s|gs://<your-gs-bucket>/|$KOPS_STATE_STORE|" part*.yaml
-    sed -i "s/<your-cloud-computing-architecture-gcp-project>/$PROJECT/" part*.yaml
-    kops create -f part3.yaml
-    kops create secret --name part3.k8s.local sshpublickey admin -i cloud-computing.pub
-    kops update cluster --name part3.k8s.local --yes --admin
-    echo "Validating cluster..."
-    kops validate cluster --wait 10m
-fi
-
+CreateKubernetesCluster part3
 LogTiming cluster_created
 TerminalBell
 
