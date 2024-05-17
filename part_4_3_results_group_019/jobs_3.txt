@@ -1,0 +1,55 @@
+start 2024-05-17T17:07:00.560015 scheduler
+start 2024-05-17T17:06:58.193000 memcached [0,1] 2
+start 2024-05-17T17:06:58.911231 blackscholes [2] 2
+start 2024-05-17T17:06:59.471214 radix [1] 1
+start 2024-05-17T17:06:59.166284 vips [3] 2
+pause 2024-05-17T17:07:10.825046 radix
+unpause 2024-05-17T17:08:00.709101 radix
+pause 2024-05-17T17:08:13.010839 radix
+unpause 2024-05-17T17:08:21.242326 radix
+end 2024-05-17T17:08:25.891119 blackscholes
+pause 2024-05-17T17:08:30.669193 blackscholes
+start 2024-05-17T17:08:29.575031 canneal [2,3] 3
+update_cores 2024-05-17T17:08:30.669193 canneal [2]
+end 2024-05-17T17:08:36.074228 radix
+update_cores 2024-05-17T17:08:38.238376 canneal [2,3]
+pause 2024-05-17T17:08:38.238376 radix
+end 2024-05-17T17:08:47.693993 vips
+start 2024-05-17T17:08:49.066503 dedup [1] 1
+pause 2024-05-17T17:08:50.127589 dedup
+pause 2024-05-17T17:08:50.127589 vips
+unpause 2024-05-17T17:09:10.538806 dedup
+pause 2024-05-17T17:09:40.155799 dedup
+unpause 2024-05-17T17:09:50.361605 dedup
+end 2024-05-17T17:09:56.539105 dedup
+update_cores 2024-05-17T17:09:58.998601 canneal [1,2,3]
+pause 2024-05-17T17:09:58.998601 dedup
+update_cores 2024-05-17T17:10:01.079122 canneal [2,3]
+update_cores 2024-05-17T17:10:50.850649 canneal [1,2,3]
+end 2024-05-17T17:10:58.850199 canneal
+pause 2024-05-17T17:11:00.370427 canneal
+start 2024-05-17T17:10:59.335085 ferret [2,3] 3
+update_cores 2024-05-17T17:11:10.534941 ferret [1,2,3]
+update_cores 2024-05-17T17:11:30.952447 ferret [2,3]
+update_cores 2024-05-17T17:13:01.299017 ferret [1,2,3]
+update_cores 2024-05-17T17:13:10.458372 ferret [2,3]
+update_cores 2024-05-17T17:13:30.803591 ferret [1,2,3]
+update_cores 2024-05-17T17:13:39.995586 ferret [2,3]
+end 2024-05-17T17:14:07.340755 ferret
+pause 2024-05-17T17:14:08.982768 ferret
+start 2024-05-17T17:14:07.941157 freqmine [2,3] 3
+update_cores 2024-05-17T17:14:21.518240 freqmine [1,2,3]
+update_cores 2024-05-17T17:14:30.677424 freqmine [2,3]
+update_cores 2024-05-17T17:15:30.657191 freqmine [1,2,3]
+update_cores 2024-05-17T17:15:40.842405 freqmine [2,3]
+update_cores 2024-05-17T17:15:51.014513 freqmine [1,2,3]
+update_cores 2024-05-17T17:16:20.537726 freqmine [2,3]
+update_cores 2024-05-17T17:17:41.811427 freqmine [1,2,3]
+update_cores 2024-05-17T17:17:42.855180 freqmine [2,3]
+update_cores 2024-05-17T17:17:43.893087 freqmine [1,2,3]
+update_cores 2024-05-17T17:17:45.948271 freqmine [2,3]
+update_cores 2024-05-17T17:17:46.986971 freqmine [1,2,3]
+update_cores 2024-05-17T17:17:48.025633 freqmine [2,3]
+end 2024-05-17T17:18:05.544864 freqmine
+end 2024-05-17T17:19:58.734000 memcached
+end 2024-05-17T17:18:06.286532 scheduler
