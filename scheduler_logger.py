@@ -18,46 +18,44 @@ class Job(Enum):
 
 
 class SchedulerLogger:
-    def __init__(self):
-        start_date = datetime.now().strftime("%Y%m%d_%H%M%S")
+    def __init__(self, i: int, start_date: str):
+        self.file = open(f"jobs_{i}.txt", "w")
+        self._log("start", start_date, Job.SCHEDULER)
 
-        self.file = open(f"log{start_date}.txt", "w")
-        self._log("start", Job.SCHEDULER)
-
-    def _log(self, event: str, job_name: Job, args: str = "") -> None:
+    def _log(self, start_date: str, event: str, job_name: Job, args: str = "") -> None:
         self.file.write(
-            LOG_STRING.format(timestamp=datetime.now().isoformat(), event=event, job_name=job_name.value,
+            LOG_STRING.format(timestamp=start_date, event=event, job_name=job_name.value,
                               args=args).strip() + "\n")
 
-    def job_start(self, job: Job, initial_cores: list[str], initial_threads: int) -> None:
+    def job_start(self, start_date: str, job: Job, initial_cores: list[str], initial_threads: int) -> None:
         assert job != Job.SCHEDULER, "You don't have to log SCHEDULER here"
 
-        self._log("start", job, "["+(",".join(str(i) for i in initial_cores))+"] "+str(initial_threads))
+        self._log("start", start_date, job, "["+(",".join(str(i) for i in initial_cores))+"] "+str(initial_threads))
 
-    def job_end(self, job: Job) -> None:
+    def job_end(self, start_date: str, job: Job) -> None:
         assert job != Job.SCHEDULER, "You don't have to log SCHEDULER here"
 
-        self._log("end", job)
+        self._log("end", start_date, job)
 
-    def update_cores(self, job: Job, cores: list[str]) -> None:
+    def update_cores(self, start_date: str, job: Job, cores: list[str]) -> None:
         assert job != Job.SCHEDULER, "You don't have to log SCHEDULER here"
 
-        self._log("update_cores", job, "["+(",".join(str(i) for i in cores))+"]")
+        self._log("update_cores", start_date, job, "["+(",".join(str(i) for i in cores))+"]")
 
-    def job_pause(self, job: Job) -> None:
+    def job_pause(self, start_date: str, job: Job) -> None:
         assert job != Job.SCHEDULER, "You don't have to log SCHEDULER here"
 
-        self._log("pause", job)
+        self._log("pause", start_date, job)
 
-    def job_unpause(self, job: Job) -> None:
+    def job_unpause(self, start_date: str, job: Job) -> None:
         assert job != Job.SCHEDULER, "You don't have to log SCHEDULER here"
 
-        self._log("unpause", job)
+        self._log("unpause", start_date, job)
 
-    def custom_event(self, job:Job, comment: str):
-        self._log("custom", job, urllib.parse.quote_plus(comment))
+    def custom_event(self, start_date: str, job:Job, comment: str):
+        self._log("custom", start_date, job, urllib.parse.quote_plus(comment))
 
-    def end(self) -> None:
-        self._log("end", Job.SCHEDULER)
+    def end(self, start_date: str) -> None:
+        self._log("end", start_date, Job.SCHEDULER)
         self.file.flush()
         self.file.close()
