@@ -165,5 +165,5 @@ plot_run(
     "part_3_results_group_019/pods_3.json", "part_3_results_group_019/mcperf_3.txt", 3
 )
 
-plt.savefig("part_3_results_group_019/plot3_1.png")
+plt.savefig("part_3_results_group_019/plot3_1.svg")
 # plt.show()
