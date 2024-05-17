@@ -44,7 +44,7 @@ echo "Starting mcperf..."
 KillPreviousMcperf "$CLIENT_AGENT_EXTERNAL_IP"
 KillPreviousMcperf "$CLIENT_MEASURE_EXTERNAL_IP"
 RunCommand "$CLIENT_AGENT_EXTERNAL_IP" "tmux new-session -s mcperf -d '~/memcache-perf/mcperf -T 16 -A'"
-RunCommand "$CLIENT_MEASURE_EXTERNAL_IP" "~/memcache-perf/mcperf -s $MEMCACHED_INTERNAL_IP --loadonly; tmux new-session -s mcperf -d '~/memcache-perf/mcperf -s $MEMCACHED_INTERNAL_IP -a $CLIENT_AGENT_INTERNAL_IP --noload -T 16 -C 4 -D 4 -Q 1000 -c 4 -t 780 --qps_interval 10 --qps_min 5000 --qps_max 100000 > ~/mcperf.txt 2>&1'"
+RunCommand "$CLIENT_MEASURE_EXTERNAL_IP" "~/memcache-perf/mcperf -s $MEMCACHED_INTERNAL_IP --loadonly; tmux new-session -s mcperf -d '~/memcache-perf/mcperf -s $MEMCACHED_INTERNAL_IP -a $CLIENT_AGENT_INTERNAL_IP --noload -T 16 -C 4 -D 4 -Q 1000 -c 4 -t 780 --qps_interval 4 --qps_min 5000 --qps_max 100000 --qps_seed 3274 > ~/mcperf.txt 2>&1'"
 
 CopyToVM part4.py "$MEMCACHED_EXTERNAL_IP:~/scheduler.py"
 RunCommand "$MEMCACHED_EXTERNAL_IP" "sudo python3 ~/scheduler.py $MEMCACHED_PID"

@@ -1,0 +1,102 @@
+start 2024-05-17T19:26:58.016237 scheduler
+start 2024-05-17T19:26:55.911000 memcached [0,1] 2
+start 2024-05-17T19:26:56.376741 blackscholes [2] 2
+start 2024-05-17T19:26:56.905583 radix [1] 1
+start 2024-05-17T19:26:56.621310 vips [3] 2
+pause 2024-05-17T19:27:02.174777 radix
+unpause 2024-05-17T19:27:25.193214 radix
+pause 2024-05-17T19:27:27.319760 radix
+unpause 2024-05-17T19:27:30.447597 radix
+pause 2024-05-17T19:27:38.843788 radix
+unpause 2024-05-17T19:27:51.122386 radix
+pause 2024-05-17T19:28:02.450237 radix
+unpause 2024-05-17T19:28:06.610235 radix
+pause 2024-05-17T19:28:10.837579 radix
+end 2024-05-17T19:28:28.135862 blackscholes
+pause 2024-05-17T19:28:31.764187 blackscholes
+start 2024-05-17T19:28:30.696006 canneal [2,3] 3
+update_cores 2024-05-17T19:28:31.764187 canneal [2]
+unpause 2024-05-17T19:28:32.873723 radix
+pause 2024-05-17T19:28:34.018446 radix
+end 2024-05-17T19:28:34.839180 vips
+update_cores 2024-05-17T19:28:37.337567 canneal [2,3]
+pause 2024-05-17T19:28:37.337567 vips
+unpause 2024-05-17T19:28:39.428553 radix
+pause 2024-05-17T19:28:46.638063 radix
+unpause 2024-05-17T19:29:23.290269 radix
+pause 2024-05-17T19:29:26.389354 radix
+unpause 2024-05-17T19:29:34.571277 radix
+end 2024-05-17T19:29:34.932258 radix
+start 2024-05-17T19:29:35.848989 dedup [1] 1
+pause 2024-05-17T19:29:36.906327 radix
+pause 2024-05-17T19:29:37.980503 dedup
+unpause 2024-05-17T19:29:54.301220 dedup
+pause 2024-05-17T19:29:58.435476 dedup
+unpause 2024-05-17T19:30:22.894217 dedup
+pause 2024-05-17T19:30:27.049227 dedup
+unpause 2024-05-17T19:30:30.162575 dedup
+pause 2024-05-17T19:30:42.528006 dedup
+unpause 2024-05-17T19:31:17.151824 dedup
+pause 2024-05-17T19:31:18.266931 dedup
+unpause 2024-05-17T19:31:26.442598 dedup
+end 2024-05-17T19:31:29.120222 canneal
+pause 2024-05-17T19:31:32.117718 canneal
+pause 2024-05-17T19:31:32.117718 dedup
+start 2024-05-17T19:31:31.068770 ferret [2,3] 3
+unpause 2024-05-17T19:31:46.441728 dedup
+pause 2024-05-17T19:31:50.593963 dedup
+unpause 2024-05-17T19:32:10.990160 dedup
+end 2024-05-17T19:32:13.005684 dedup
+pause 2024-05-17T19:32:15.382079 dedup
+update_cores 2024-05-17T19:32:30.624197 ferret [1,2,3]
+update_cores 2024-05-17T19:32:34.720780 ferret [2,3]
+update_cores 2024-05-17T19:32:38.807587 ferret [1,2,3]
+update_cores 2024-05-17T19:32:42.939376 ferret [2,3]
+update_cores 2024-05-17T19:32:51.090615 ferret [1,2,3]
+update_cores 2024-05-17T19:32:58.259028 ferret [2,3]
+update_cores 2024-05-17T19:33:06.416094 ferret [1,2,3]
+update_cores 2024-05-17T19:33:10.524772 ferret [2,3]
+update_cores 2024-05-17T19:33:22.734454 ferret [1,2,3]
+update_cores 2024-05-17T19:33:29.924870 ferret [2,3]
+update_cores 2024-05-17T19:33:35.029066 ferret [1,2,3]
+update_cores 2024-05-17T19:33:42.176438 ferret [2,3]
+update_cores 2024-05-17T19:34:02.510699 ferret [1,2,3]
+update_cores 2024-05-17T19:34:09.691043 ferret [2,3]
+update_cores 2024-05-17T19:34:14.786864 ferret [1,2,3]
+update_cores 2024-05-17T19:34:17.873724 ferret [2,3]
+end 2024-05-17T19:34:39.928851 ferret
+pause 2024-05-17T19:34:41.561538 ferret
+start 2024-05-17T19:34:40.532087 freqmine [2,3] 3
+update_cores 2024-05-17T19:34:42.595947 freqmine [1,2,3]
+update_cores 2024-05-17T19:34:46.698501 freqmine [2,3]
+update_cores 2024-05-17T19:34:54.851799 freqmine [1,2,3]
+update_cores 2024-05-17T19:34:57.938785 freqmine [2,3]
+update_cores 2024-05-17T19:35:03.033154 freqmine [1,2,3]
+update_cores 2024-05-17T19:35:06.129541 freqmine [2,3]
+update_cores 2024-05-17T19:35:30.542380 freqmine [1,2,3]
+update_cores 2024-05-17T19:35:33.618584 freqmine [2,3]
+update_cores 2024-05-17T19:35:38.723366 freqmine [1,2,3]
+update_cores 2024-05-17T19:35:41.810971 freqmine [2,3]
+update_cores 2024-05-17T19:35:46.916943 freqmine [1,2,3]
+update_cores 2024-05-17T19:35:50.002962 freqmine [2,3]
+update_cores 2024-05-17T19:35:55.108721 freqmine [1,2,3]
+update_cores 2024-05-17T19:35:58.189197 freqmine [2,3]
+update_cores 2024-05-17T19:36:02.270603 freqmine [1,2,3]
+update_cores 2024-05-17T19:36:10.410301 freqmine [2,3]
+update_cores 2024-05-17T19:36:18.555736 freqmine [1,2,3]
+update_cores 2024-05-17T19:36:26.712014 freqmine [2,3]
+update_cores 2024-05-17T19:36:30.793611 freqmine [1,2,3]
+update_cores 2024-05-17T19:36:34.890457 freqmine [2,3]
+update_cores 2024-05-17T19:36:58.290229 freqmine [1,2,3]
+update_cores 2024-05-17T19:37:02.378390 freqmine [2,3]
+update_cores 2024-05-17T19:37:10.518671 freqmine [1,2,3]
+update_cores 2024-05-17T19:37:21.744786 freqmine [2,3]
+update_cores 2024-05-17T19:37:26.850757 freqmine [1,2,3]
+update_cores 2024-05-17T19:37:38.065529 freqmine [2,3]
+update_cores 2024-05-17T19:37:58.407145 freqmine [1,2,3]
+update_cores 2024-05-17T19:38:02.492837 freqmine [2,3]
+update_cores 2024-05-17T19:38:10.640866 freqmine [1,2,3]
+update_cores 2024-05-17T19:38:14.730751 freqmine [2,3]
+end 2024-05-17T19:38:23.023163 freqmine
+end 2024-05-17T19:39:56.501000 memcached
+end 2024-05-17T19:38:23.875029 scheduler
